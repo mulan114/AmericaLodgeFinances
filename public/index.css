@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #2e4272;
+
+  font-family: 'Roboto Slab', serif;
+  color: white;
+
+  padding: 20px;
+}
+
+img {
+	float: left;
+}
+
+h1, h2 {
+	text-align: left;
+}
+
+p {
+	font-size: 12px;
+}
+
+form {
+	padding-left: 40px;
+	padding-right: 40px;
+	text-align: left;
+	color: white;
+}
+
+/* class that hides or shows a section of text on the html page */
+.hidden {
+	display: none;
+}
+
+/* classes that creates a table to display database information */
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.item {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+  border: 1px solid gray;
+}
+
+
+
+#introduction
+
+#revenueOptions
+
+#revenueDisplayOptions
+
+#revenueInput
+
+#revenueDisplay {
+	width: 80%;
+	overflow: auto;
+	padding: 10px;
+	margin: auto;
+	background-color: #6F787F;
+}
+
+@media only screen and (max-width: 600px) {
+	#revenueDisplay {
+		width: 90%;
+	}
+}

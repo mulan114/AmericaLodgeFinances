@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<title>Thinkful Capstone 2</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- fonts  -->
+  	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+    <!-- reset -->
+  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+	
+	<link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+<body>
+	<img src="./ALN-logo.png" alt="ALN-logo" height="100" width="100">
+	<h1>  America Lodge Finances</h1>
+	<br><br>
+	<form id="introduction">
+		<label>Which would you like to work with at this time?</label>
+		<br><br>
+		<input type="radio" name="whichoption" value="0"> Revenue<br>
+		<input type="radio" name="whichoption" value="1"> Expenses<br>
+		<br>
+		<button id="initialSelect"> Select </button>
+	</form>
+
+	<form  id="revenueOptions" class="hidden">
+		<label>What would you like to do regarding revenue?</label>
+		<br><br>
+		<input type="radio" name="whichrevoption" value="0"> Show revenue<br>
+		<input type="radio" name="whichrevoption" value="1"> Add revenue entry<br>
+		<br>
+		<button id="revenueSelect"> Select </button>
+		<button id="backToIntro"> Back to Start </button>
+	</form>
+
+	<form  id="revenueDisplayOptions" class="hidden">
+		<label>What type of revenue would you like to see?</label>
+		<br><br>
+		<input type="radio" name="whichrevdisoption" value="0"> All<br>
+		<input type="radio" name="whichrevdisoption" value="1"> Lodge Donations<br>
+		<input type="radio" name="whichrevdisoption" value="2"> Charity Donations<br>
+		<input type="radio" name="whichrevdisoption" value="3"> Merchandise Payments<br>
+		<input type="radio" name="whichrevdisoption" value="3"> Food Payments<br>		
+		<br>
+		<button id="revenueDisplaySelect"> Select </button>
+		<button id="backToIntro"> Back to Start </button>
+	</form>
+
+	<section id="revenueDisplay" class="hidden">
+		<h2>Here are the requested revenues</h2>
+	</section>
+
+	<form  id="revenueInput" class="hidden">
+		<h3>Revenue Input</h3>
+		<br><br>
+		First Name <input type="text" name="firstName"><br>
+		<br>
+		Last Name  <input type="text" name="lastName"><br>
+		<br>
+		Type of Revenue (select one):
+		<br>
+		<input type="radio" name="whichRevType" value="0"> Lodge Donation<br>
+		<input type="radio" name="whichRevType" value="1"> Charity Donation<br>
+		<input type="radio" name="whichRevType" value="2"> Merchandise Payment<br>
+		<input type="radio" name="whichRevType" value="3"> Food Payment<br>
+		<br>
+		Amount <input type="number" name="amount"><br>		
+		<br><br>
+		<button id="revenueSubmit"> Submit </button>
+		<button id="backtointro1"> Back to Start </button>
+	</form>
+
+	<form  id="revenueUpdate" class="hidden">
+		<h3>Update fields with new data, as required</h3>
+		<br><br>
+		First Name <input type="text" name="firstUpName"><br>
+		<br>
+		Last Name  <input type="text" name="lastUpName"><br>
+		<br>
+		Type of Revenue (select one):
+		<br>
+		<input type="radio" name="whichUpRevType" value="0"> Lodge Donation<br>
+		<input type="radio" name="whichUpRevType" value="1"> Charity Donation<br>
+		<input type="radio" name="whichUpRevType" value="2"> Merchandise Payment<br>
+		<input type="radio" name="whichUpRevType" value="3"> Food Payment<br>
+		<br>
+		Amount <input type="number" name="upAmount"><br>		
+		<br><br>
+		<button id="updateRevSubmit"> Submit </button>
+		<button id="backtointro1"> Back to Start </button>
+	</form>
+
+	<form  id="expensesOptions" class="hidden">
+		<label>What would you like to do regarding expenses?</label>
+		<br><br>
+		<input type="radio" name="whichexpoption" value="0"> Show expenses<br>
+		<input type="radio" name="whichexpoption" value="1"> Add expense entry<br>
+		<br>
+		<button id="expenseSelect"> Select </button>
+		<button id="backToIntro"> Back to Start </button>
+	</form>
+
+	<section id="expensesDisplay" class="hidden">
+		<h2>Here are the expenses</h2>
+	</section>	
+
+	<form  id="expenseInput" class="hidden">
+		<h3>Expense Input</h3>
+		<br><br>
+		Payee Name <input type="text" name="payeeName"><br>
+		<br>
+		Amount <input type="number" name="expAmount"><br>		
+		<br><br>
+		<button id="expenseSubmit"> Submit </button>
+		<button id="backtointro1"> Back to Start </button>
+	</form>
+
+	<form  id="expenseUpdate" class="hidden">
+		<h3>Update fields with new data, as required</h3>
+		<br><br>
+		Payee Name <input type="text" name="payeeUpName"><br>
+		<br>
+		Amount <input type="number" name="expUpAmount"><br>		
+		<br><br>
+		<button id="updateExpSubmit"> Submit </button>
+		<button id="backtointro1"> Back to Start </button>
+	</form>
+
+	<script
+  	src="https://code.jquery.com/jquery-3.3.1.min.js"
+  	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  	crossorigin="anonymous"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  	<script src="./index.js"></script>
+</body>
+</html>
