@@ -1,6 +1,18 @@
 'use strict';
 
 
+// after successful login, run the finance app
+function financeApp() {
+    $('#initialSelect').click(event => {
+        event.preventDefault();
+        let option = $('input[name="whichoption"]:checked').val();
+        if (option === "0") {
+            revenueForm();
+        } else if (option === "1") {
+            expensesForm();
+        }
+    })
+}
 
 // retrieves revenue actions available to user
 function revenueForm() {
@@ -352,15 +364,7 @@ function startOver() {
 // landing page for America Lodge Finances, offering options to manage revenue 
 // and expenses associated with Lodge
 function watchForm() {
-    $('#initialSelect').click(event => {
-        event.preventDefault();
-        let option = $('input[name="whichoption"]:checked').val();
-        if (option === "0") {
-            revenueForm();
-        } else if (option === "1") {
-            expensesForm();
-        }
-    })
+    financeApp();
 }
 
 
