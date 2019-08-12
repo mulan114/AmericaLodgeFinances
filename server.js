@@ -5,10 +5,14 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const jwt = require('jsonwebtoken');
+
 const { DATABASE_URL, PORT } = require('./config');
 
-const revenueRoutes = require('./revenue_feature/revenue_route')
-const expenseRoutes = require('./expense_feature/expense_route')
+const revenueRoutes = require('./revenue_feature/revenue_route');
+const expenseRoutes = require('./expense_feature/expense_route');
+const userRoutes = require('./user_feature/user_route');
+const loginRoutes = require('./login_feature/login_route');
 
 const app = express();
 
@@ -17,8 +21,8 @@ app.use(bodyParser.json());
 app.use('/', express.static('public'));
 app.use('/revenue', revenueRoutes);
 app.use('/expenses', expenseRoutes);
-
-
+app.use('/users', userRoutes);
+app.use('/login', loginRoutes);
 
 // closeServer needs access to a server object, but that only
 // gets created when `runServer` runs, so we declare `server` here

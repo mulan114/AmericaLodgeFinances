@@ -1,8 +1,58 @@
 'use strict';
 
+function loginUser(uname, pw) {
+    console.log('in login user');
+    let loginUser = {email: uname, password: pw};
+    console.log(loginUser);
+    fetch(`/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(loginUser),
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(responseJson => {
+            console.log('logged in new user');
+            console.log(responseJson);
+            if (responseJson.data) {
+                localStorage.setItem('token', responseJson.data.token);
+                financeApp();
+            }
+            else {
+                alert(responseJson.message);
+            }
+        });
+}
+
+function createUser(uname, fname, lname, pw) {
+    console.log('in create user');
+    let newUser = {email: uname, firstName: fname, lastName: lname, password: pw}
+    console.log(newUser);
+    fetch(`/users`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(newUser),
+        })
+        .then(responseJson => {
+            document.getElementById('userName').value='';
+            document.getElementById('fstName').value='';
+            document.getElementById('lstName').value='';
+            document.getElementById('password').value='';
+            alert('New user created.  Please login using your credentials.');
+        });
+}
 
 // after successful login, run the finance app
 function financeApp() {
+    $('#introduction').removeClass("hidden");
+    $('#landing').addClass("hidden");
     $('#initialSelect').click(event => {
         event.preventDefault();
         let option = $('input[name="whichoption"]:checked').val();
@@ -48,57 +98,53 @@ function getRevenue() {
         event.preventDefault();
         let option = $('input[name="whichrevdisoption"]:checked').val();
         if (option === "0") {
-            fetch(`/revenue/all`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
+            fetch(`/revenue/all`, {
+                headers: {
+                    'authorization': localStorage.getItem('token')
                     }
-                    throw new Error(response.statusText);
                 })
+                .then(response => response.json())
                 .then(responseJson => {
+                    console.log(responseJson.payload);
                     displayRevenue(responseJson.payload);
                 });
         } else if (option === "1") {
-            fetch(`/revenue/lodgedonations`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
+            fetch(`/revenue/lodgedonations`, {
+                headers: {
+                    'authorization': localStorage.getItem('token')
                     }
-                    throw new Error(response.statusText);
                 })
+                .then(response => response.json())
                 .then(responseJson => {
                     displayRevenue(responseJson.payload);
                 });
         } else if (option === "2") {
-            fetch(`/revenue/chardonations`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new Error(response.statusText);
+            fetch(`/revenue/chardonations`, {
+                headers: {
+                    'authorization': localStorage.getItem('token')
+                     }
                 })
+                .then(response => response.json())
                 .then(responseJson => {
                     displayRevenue(responseJson.payload);
                 });
         } else if (option === "3") {
-            fetch(`/revenue/merchpayments`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
+            fetch(`/revenue/merchpayments`, {
+                headers: {
+                    'authorization': localStorage.getItem('token')
                     }
-                    throw new Error(response.statusText);
                 })
+                .then(response => response.json())
                 .then(responseJson => {
                     displayRevenue(responseJson.payload);
                 });
         } else if (option === "4") {
-            fetch(`/revenue/foodpayments`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
+            fetch(`/revenue/foodpayments`, {
+                headers: {
+                    'authorization': localStorage.getItem('token')
                     }
-                    throw new Error(response.statusText);
                 })
+                .then(response => response.json())
                 .then(responseJson => {
                     displayRevenue(responseJson.payload);
                 });            
@@ -160,7 +206,7 @@ function addRevenue() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
+                'authorization': localStorage.getItem('token')
             },
             body: JSON.stringify(revInput),
         })
@@ -172,6 +218,10 @@ function deleteRevenue(deleteRevID, target) {
     console.log('in delete revenue');
     fetch(`/revenue/${deleteRevID}`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': localStorage.getItem('token')
+        },
     })
         .then(response => {
             $(target).parent().remove()
@@ -207,7 +257,7 @@ function updateRevenue(updateRevID) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
+                'authorization': localStorage.getItem('token')
             },
             body: JSON.stringify(revInput),
         })
@@ -247,7 +297,12 @@ function getExpenses() {
         event.preventDefault();
         startOver();
     });
-    fetch(`/expenses`)
+    fetch(`/expenses`, {
+        headers: {
+            'Content-Type': 'application/json', 'authorization': localStorage.getItem('token')
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -297,13 +352,12 @@ function addExpense() {
         event.preventDefault();
         let pName = $('input[name="payeeName"]').val();
         let amt = $('input[name="expAmount"]').val();
-        let option = $('input[name="whichRevType"]:checked').val();
         let expInput = {payeeName: pName, amount: amt};
         console.log(expInput);
         fetch(`/expenses/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json', 'authorization': localStorage.getItem('token')
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(expInput),
@@ -316,6 +370,9 @@ function deleteExpense(deleteExpID, target) {
     console.log('in delete expense');
     fetch(`/expenses/${deleteExpID}`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json', 'authorization': localStorage.getItem('token')
+        }
     })
         .then(response => {
             $(target).parent().remove()
@@ -338,7 +395,7 @@ function updateExpense(updateExpID) {
         fetch(`/expenses/${updateExpID}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json', 'authorization': localStorage.getItem('token')
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(expInput),
@@ -351,6 +408,7 @@ function updateExpense(updateExpID) {
 
 function startOver() {
     console.log('in start over');
+    $('#landing').addClass("hidden");
 	$('#introduction').removeClass("hidden");
 	$('#revenueOptions').addClass("hidden");
     $('#revenueDisplayOptions').addClass("hidden");
@@ -361,10 +419,29 @@ function startOver() {
     $('#expenseInput').addClass("hidden");
 }
 
-// landing page for America Lodge Finances, offering options to manage revenue 
-// and expenses associated with Lodge
+// landing page for America Lodge Finances, offering options to login as a user or 
+// create a new user
 function watchForm() {
-    financeApp();
+    $('#login').click(event => {
+        event.preventDefault();
+        let uName = $("#userName").val();
+        let pword = $("#password").val();
+        loginUser(uName, pword);
+    })
+    $('#create').click(event => {
+        event.preventDefault();
+        let uName = $("#userName").val();
+        let fName = $("#fstName").val();
+        let lName = $("#lstName").val();
+        let pword = $("#password").val();
+        if ((fName === '') || (lName === '') || (uName === '') || (pword === '')) {
+            console.log('entries are required for all fields to create a user account')
+        }
+// add code to check if user already exists.  need to user get and find()
+        else {
+            createUser(uName, fName, lName, pword);
+        }
+    })
 }
 
 

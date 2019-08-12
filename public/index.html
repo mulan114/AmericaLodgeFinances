@@ -18,14 +18,20 @@
 
 	<form id="landing">
 		<label>Welcome! Please login or create an account.</label>
-		<input type="text" name="username"> Username<br>
 		<br><br>
-		<input type="text" name="password"> Password<br>
+		Username  <input type="text" id="userName" placeholder="email address" /><br>
+		<br>
+		First Name  <input type="text" id="fstName" />  (required if creating an account)<br>
+		<br>
+		Last Name   <input type="text" id="lstName" />  (required if creating an account)<br>
+		<br><br>
+		Password  <input type="text" id="password" /><br>
+		<br>
 		<button id="login"> Login </button>
 		<button id="create"> Create </button>
 	</form>
 
-	<form id="introduction">
+	<form id="introduction" class="hidden">
 		<label>Which would you like to work with at this time?</label>
 		<br><br>
 		<input type="radio" name="whichoption" value="0"> Revenue<br>
@@ -51,7 +57,7 @@
 		<input type="radio" name="whichrevdisoption" value="1"> Lodge Donations<br>
 		<input type="radio" name="whichrevdisoption" value="2"> Charity Donations<br>
 		<input type="radio" name="whichrevdisoption" value="3"> Merchandise Payments<br>
-		<input type="radio" name="whichrevdisoption" value="3"> Food Payments<br>		
+		<input type="radio" name="whichrevdisoption" value="4"> Food Payments<br>		
 		<br>
 		<button id="revenueDisplaySelect"> Select </button>
 		<button id="backToIntro"> Back to Start </button>
@@ -78,7 +84,7 @@
 		Amount <input type="number" name="amount"><br>		
 		<br><br>
 		<button id="revenueSubmit"> Submit </button>
-		<button id="backtointro1"> Back to Start </button>
+		<button id="backToIntro"> Back to Start </button>
 	</form>
 
 	<form  id="revenueUpdate" class="hidden">
@@ -98,7 +104,7 @@
 		Amount <input type="number" name="upAmount"><br>		
 		<br><br>
 		<button id="updateRevSubmit"> Submit </button>
-		<button id="backtointro1"> Back to Start </button>
+		<button id="backToIntro"> Back to Start </button>
 	</form>
 
 	<form  id="expensesOptions" class="hidden">
@@ -123,7 +129,7 @@
 		Amount <input type="number" name="expAmount"><br>		
 		<br><br>
 		<button id="expenseSubmit"> Submit </button>
-		<button id="backtointro1"> Back to Start </button>
+		<button id="backToIntro"> Back to Start </button>
 	</form>
 
 	<form  id="expenseUpdate" class="hidden">
@@ -134,7 +140,7 @@
 		Amount <input type="number" name="expUpAmount"><br>		
 		<br><br>
 		<button id="updateExpSubmit"> Submit </button>
-		<button id="backtointro1"> Back to Start </button>
+		<button id="backToIntro"> Back to Start </button>
 	</form>
 
 	<script

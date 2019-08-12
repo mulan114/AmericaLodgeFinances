@@ -3,6 +3,10 @@ const express = require('express');
 const revRouter = express.Router();
 const { Revenue } = require('../revenue_feature/revenue_model');
 
+const middleware = require('../middleware');
+
+revRouter.use(middleware.verifyToken);
+
 revRouter.get('/chardonations', (req, res) => {
 
 	Revenue.find({ type: 'CHARDONATION' })

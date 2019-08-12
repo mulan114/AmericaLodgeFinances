@@ -3,6 +3,10 @@ const express = require('express');
 const expRouter = express.Router();
 const { Expense } = require('../expense_feature/expense_model');
 
+const middleware = require('../middleware');
+
+expRouter.use(middleware.verifyToken);
+
 expRouter.get('/', (req, res) => {
 	Expense.find()
 		.then(expenses => {
