@@ -64,6 +64,18 @@ function financeApp() {
     })
 }
 
+$('#backToIntro').click(event => {
+    debugger;
+    event.preventDefault();
+    startOver();
+});
+
+$('#backtointro').click(event => {
+    debugger;
+    event.preventDefault();
+    startOver();
+});
+
 // retrieves revenue actions available to user
 function revenueForm() {
     console.log('in revenue form');
@@ -90,10 +102,7 @@ function getRevenue() {
     $('#revenueOptions').addClass("hidden");
     $('#revenueDisplay').addClass("hidden");
     $('#revenueUpdate').addClass("hidden");
-    $('#backToIntro').click(event => {
-        event.preventDefault();
-        startOver();
-    });
+
     $('#revenueDisplaySelect').click(event => {
         event.preventDefault();
         let option = $('input[name="whichrevdisoption"]:checked').val();
