@@ -64,27 +64,17 @@ function financeApp() {
     })
 }
 
-$('#backToIntro').click(event => {
-    debugger;
-    event.preventDefault();
-    startOver();
-});
-
-$('#backtointro').click(event => {
-    debugger;
-    event.preventDefault();
-    startOver();
-});
-
 // retrieves revenue actions available to user
 function revenueForm() {
     console.log('in revenue form');
     $('#revenueOptions').removeClass("hidden");
     $('#introduction').addClass("hidden");
-    $('#backToIntro').click(event => {
+
+    $('#backToIntroRO').click(event => {
         event.preventDefault();
         startOver();
     });
+
     $('#revenueSelect').click(event => {
         event.preventDefault();
         let option = $('input[name="whichrevoption"]:checked').val();
@@ -102,6 +92,11 @@ function getRevenue() {
     $('#revenueOptions').addClass("hidden");
     $('#revenueDisplay').addClass("hidden");
     $('#revenueUpdate').addClass("hidden");
+
+    $('#backToIntroRDO').click(event => {
+        event.preventDefault();
+        startOver();
+    });    
 
     $('#revenueDisplaySelect').click(event => {
         event.preventDefault();
@@ -189,10 +184,12 @@ function addRevenue() {
     console.log('in revenue add form');
     $('#revenueInput').removeClass("hidden");
     $('#revenueOptions').addClass("hidden");
-    $('#backToIntro').click(event => {
+
+    $('#backToIntroRI').click(event => {
         event.preventDefault();
         startOver();
     });
+
     $('#revenueSubmit').click(event => {
         event.preventDefault();
         let fName = $('input[name="firstName"]').val();
@@ -240,10 +237,12 @@ function deleteRevenue(deleteRevID, target) {
 function updateRevenue(updateRevID) {
     console.log('in revenue update form');
     $('#revenueUpdate').removeClass("hidden");
-    $('#backToIntro').click(event => {
+
+    $('#backToIntroRU').click(event => {
         event.preventDefault();
         startOver();
     });
+
     $('#updateRevSubmit').click(event => {
         event.preventDefault();
         let fName = $('input[name="firstUpName"]').val();
@@ -282,10 +281,12 @@ function expensesForm() {
     console.log('in expenses form');
     $('#expensesOptions').removeClass("hidden");
     $('#introduction').addClass("hidden");
-    $('#backToIntro').click(event => {
+
+    $('#backToIntroEO').click(event => {
         event.preventDefault();
         startOver();
     });
+
     $('#expenseSelect').click(event => {
         event.preventDefault();
         let option = $('input[name="whichexpoption"]:checked').val();
@@ -302,10 +303,12 @@ function getExpenses() {
     $('#expensesDisplay').html("<h2>Here are the expenses</h2>");
     $('#expensesDisplay').removeClass("hidden");
     $('#expenseUpdate').addClass("hidden");
-    $('#backToIntro').click(event => {
+
+    $('#backToIntroED').click(event => {
         event.preventDefault();
         startOver();
     });
+
     fetch(`/expenses`, {
         headers: {
             'Content-Type': 'application/json', 'authorization': localStorage.getItem('token')
@@ -353,10 +356,12 @@ function addExpense() {
     $('#expenseInput').removeClass("hidden");
     $('#expenseOptions').addClass("hidden");
     $('#expensesDisplay').addClass('hidden');
-    $('#backToIntro').click(event => {
+
+    $('#backToIntroEI').click(event => {
         event.preventDefault();
         startOver();
     });
+
     $('#expenseSubmit').click(event => {
         event.preventDefault();
         let pName = $('input[name="payeeName"]').val();
@@ -391,10 +396,12 @@ function deleteExpense(deleteExpID, target) {
 function updateExpense(updateExpID) {
     console.log('in expense update form');
     $('#expenseUpdate').removeClass("hidden");
-    $('#backToIntro').click(event => {
+
+    $('#backToIntroEU').click(event => {
         event.preventDefault();
         startOver();
     });
+
     $('#updateExpSubmit').click(event => {
         event.preventDefault();
         let pName = $('input[name="payeeUpName"]').val();
