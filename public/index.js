@@ -158,7 +158,9 @@ function getRevenue() {
 
 function displayRevenue(showRevenue) {
     $('#revenueDisplay').removeClass('hidden');
+    document.getElementById('revenueDisplay').reset();
     $('#revenueDisplay').html("<h2>Here are the requested revenues</h2>");
+    
     showRevenue.forEach((revenue, index) => {
         $('#revenueDisplay').append(
             `<div class="row item">
@@ -173,9 +175,11 @@ function displayRevenue(showRevenue) {
         )
     })
     $('body').on('click', '.updateRevForm', (event) => {
+        event.preventDefault();
         updateRevenue(event.currentTarget.value);
     })
     $('body').on('click', '.deleteRevForm', (event) => {
+        event.preventDefault();
         deleteRevenue(event.currentTarget.value, event.currentTarget);
     })
 }
@@ -208,7 +212,7 @@ function addRevenue() {
         }
         let revInput = {firstName: fName, lastName: lName, amount: amt, type: revType};
         console.log(revInput);
-        fetch(`/revenue/`, {
+        fetch(`/revenue`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -216,7 +220,10 @@ function addRevenue() {
             },
             body: JSON.stringify(revInput),
         })
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(responseJson => {
+                document.getElementById('revenueInput').reset();
+            });
     })
 }
 
@@ -300,8 +307,6 @@ function expensesForm() {
 
 function getExpenses() {
     console.log('in expenses get form');
-    $('#expensesDisplay').html("<h2>Here are the expenses</h2>");
-    $('#expensesDisplay').removeClass("hidden");
     $('#expenseUpdate').addClass("hidden");
 
     $('#backToIntroED').click(event => {
@@ -311,8 +316,7 @@ function getExpenses() {
 
     fetch(`/expenses`, {
         headers: {
-            'Content-Type': 'application/json', 'authorization': localStorage.getItem('token')
-            // 'Content-Type': 'application/x-www-form-urlencoded',
+            'authorization': localStorage.getItem('token')
             }
         })
         .then(response => {
@@ -330,6 +334,9 @@ function getExpenses() {
 function displayExpenses(showExpenses) {
     console.log('in expenses display form');
     $('#expenseInput').addClass('hidden');
+    $('#expensesDisplay').removeClass('hidden');
+    document.getElementById('expensesDisplay').reset();
+    $('#expensesDisplay').html("<h2>Here are the expenses</h2>");
     $('#expenseUpdate').addClass('hidden');
 
     showExpenses.forEach((expense, index) => {
@@ -344,9 +351,11 @@ function displayExpenses(showExpenses) {
         )
     })
     $('body').on('click', '.updateExpForm', (event) => {
+        event.preventDefault();
         updateExpense(event.currentTarget.value);
     })
     $('body').on('click', '.deleteExpForm', (event) => {
+        event.preventDefault();
         deleteExpense(event.currentTarget.value, event.currentTarget);
     })
 }
@@ -368,15 +377,19 @@ function addExpense() {
         let amt = $('input[name="expAmount"]').val();
         let expInput = {payeeName: pName, amount: amt};
         console.log(expInput);
-        fetch(`/expenses/`, {
+        fetch(`/expenses`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', 'authorization': localStorage.getItem('token')
+                'Content-Type': 'application/json', 
+                'authorization': localStorage.getItem('token')
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(expInput),
         })
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(responseJson => {
+                document.getElementById('expenseInput').reset();
+            });
     })
 }
 
@@ -385,7 +398,8 @@ function deleteExpense(deleteExpID, target) {
     fetch(`/expenses/${deleteExpID}`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json', 'authorization': localStorage.getItem('token')
+            'Content-Type': 'application/json', 
+            'authorization': localStorage.getItem('token')
         }
     })
         .then(response => {
