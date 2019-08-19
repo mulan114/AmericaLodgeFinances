@@ -53,7 +53,7 @@ function createUser(uname, fname, lname, pw) {
 function financeApp() {
     $('#introduction').removeClass("hidden");
     $('#landing').addClass("hidden");
-    $('#initialSelect').click(event => {
+    $('#initialSelect').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let option = $('input[name="whichoption"]:checked').val();
         if (option === "0") {
@@ -70,12 +70,12 @@ function revenueForm() {
     $('#revenueOptions').removeClass("hidden");
     $('#introduction').addClass("hidden");
 
-    $('#backToIntroRO').click(event => {
+    $('#backToIntroRO').unbind("click").bind("click", function(event) {
         event.preventDefault();
         startOver();
     });
 
-    $('#revenueSelect').click(event => {
+    $('#revenueSelect').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let option = $('input[name="whichrevoption"]:checked').val();
         if (option === "0") {
@@ -93,12 +93,12 @@ function getRevenue() {
     $('#revenueDisplay').addClass("hidden");
     $('#revenueUpdate').addClass("hidden");
 
-    $('#backToIntroRDO').click(event => {
+    $('#backToIntroRDO').unbind("click").bind("click", function(event) {
         event.preventDefault();
         startOver();
     });    
 
-    $('#revenueDisplaySelect').click(event => {
+    $('#revenueDisplaySelect').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let option = $('input[name="whichrevdisoption"]:checked').val();
         if (option === "0") {
@@ -189,12 +189,12 @@ function addRevenue() {
     $('#revenueInput').removeClass("hidden");
     $('#revenueOptions').addClass("hidden");
 
-    $('#backToIntroRI').click(event => {
+    $('#backToIntroRI').unbind("click").bind("click", function(event) {
         event.preventDefault();
         startOver();
     });
 
-    $('#revenueSubmit').click(event => {
+    $('#revenueSubmit').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let fName = $('input[name="firstName"]').val();
         let lName = $('input[name="lastName"]').val();
@@ -245,12 +245,12 @@ function updateRevenue(updateRevID) {
     console.log('in revenue update form');
     $('#revenueUpdate').removeClass("hidden");
 
-    $('#backToIntroRU').click(event => {
+    $('#backToIntroRU').unbind("click").bind("click", function(event) {
         event.preventDefault();
         startOver();
     });
 
-    $('#updateRevSubmit').click(event => {
+    $('#updateRevSubmit').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let fName = $('input[name="firstUpName"]').val();
         let lName = $('input[name="lastUpName"]').val();
@@ -289,12 +289,12 @@ function expensesForm() {
     $('#expensesOptions').removeClass("hidden");
     $('#introduction').addClass("hidden");
 
-    $('#backToIntroEO').click(event => {
+    $('#backToIntroEO').unbind("click").bind("click", function(event) {
         event.preventDefault();
         startOver();
     });
 
-    $('#expenseSelect').click(event => {
+    $('#expenseSelect').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let option = $('input[name="whichexpoption"]:checked').val();
         if (option === "0") {
@@ -309,7 +309,7 @@ function getExpenses() {
     console.log('in expenses get form');
     $('#expenseUpdate').addClass("hidden");
 
-    $('#backToIntroED').click(event => {
+    $('#backToIntroED').unbind("click").bind("click", function(event) {
         event.preventDefault();
         startOver();
     });
@@ -366,12 +366,12 @@ function addExpense() {
     $('#expenseOptions').addClass("hidden");
     $('#expensesDisplay').addClass('hidden');
 
-    $('#backToIntroEI').click(event => {
+    $('#backToIntroEI').unbind("click").bind("click", function(event) {
         event.preventDefault();
         startOver();
     });
 
-    $('#expenseSubmit').click(event => {
+    $('#expenseSubmit').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let pName = $('input[name="payeeName"]').val();
         let amt = $('input[name="expAmount"]').val();
@@ -411,12 +411,12 @@ function updateExpense(updateExpID) {
     console.log('in expense update form');
     $('#expenseUpdate').removeClass("hidden");
 
-    $('#backToIntroEU').click(event => {
+    $('#backToIntroEU').unbind("click").bind("click", function(event) {
         event.preventDefault();
         startOver();
     });
 
-    $('#updateExpSubmit').click(event => {
+    $('#updateExpSubmit').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let pName = $('input[name="payeeUpName"]').val();
         let amt = $('input[name="expUpAmount"]').val();
@@ -440,25 +440,33 @@ function startOver() {
     console.log('in start over');
     $('#landing').addClass("hidden");
 	$('#introduction').removeClass("hidden");
+    document.getElementById('introduction').reset();
 	$('#revenueOptions').addClass("hidden");
+    document.getElementById('revenueOptions').reset();
     $('#revenueDisplayOptions').addClass("hidden");
+    document.getElementById('revenueDisplayOptions').reset();
 	$('#revenueDisplay').addClass("hidden");
+    document.getElementById('revenueDisplay').reset();
     $('#revenueInput').addClass("hidden");
+    document.getElementById('revenueInput').reset();
     $('#expensesOptions').addClass("hidden");
+    document.getElementById('expensesOptions').reset();
     $('#expensesDisplay').addClass("hidden");
+    document.getElementById('expensesDisplay').reset();
     $('#expenseInput').addClass("hidden");
+    document.getElementById('expenseInput').reset();
 }
 
 // landing page for America Lodge Finances, offering options to login as a user or 
 // create a new user
 function watchForm() {
-    $('#login').click(event => {
+    $('#login').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let uName = $("#userName").val();
         let pword = $("#password").val();
         loginUser(uName, pword);
     })
-    $('#create').click(event => {
+    $('#create').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let uName = $("#userName").val();
         let fName = $("#fstName").val();
