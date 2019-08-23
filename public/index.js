@@ -1,5 +1,36 @@
 'use strict';
 
+// Jon Oyanguren10:00 AM
+// 1.- Do a function init that is called in index.js
+
+// 2.- The init function will check if there is a token (localStorage.getItem('token')
+
+// 2.a - IF YES -> call financeApp() function
+
+// 2.b - IF NO -> show the login
+
+// 2.b - Dont do nothing is fine because it goes there anyway
+
+$('#logout').unbind("click").bind("click", function(event) {
+    console.log('in logout');
+    event.preventDefault();
+    localStorage.removeItem('token');
+    $('#landing').removeClass("hidden");
+    document.getElementById('userName').value='';
+    document.getElementById('fstName').value='';
+    document.getElementById('lstName').value='';
+    document.getElementById('password').value='';
+    $('#introduction').addClass("hidden");
+    $('#revenueOptions').addClass("hidden");
+    $('#revenueDisplayOptions').addClass("hidden");
+    $('#revenueDisplay').addClass("hidden");
+    $('#revenueInput').addClass("hidden");
+    $('#expensesOptions').addClass("hidden");
+    $('#expensesDisplay').addClass("hidden");
+    $('#expenseInput').addClass("hidden");
+    watchForm();
+})
+
 function loginUser(uname, pw) {
     console.log('in login user');
     let loginUser = {email: uname, password: pw};
@@ -41,12 +72,14 @@ function createUser(uname, fname, lname, pw) {
         body: JSON.stringify(newUser),
         })
         .then(responseJson => {
-            document.getElementById('userName').value='';
-            document.getElementById('fstName').value='';
-            document.getElementById('lstName').value='';
-            document.getElementById('password').value='';
-            alert('New user created.  Please login using your credentials.');
+            alert('New user created.');
+            financeApp();
         });
+}
+
+function validate(userNameFormat) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(userNameFormat);
 }
 
 // after successful login, run the finance app
@@ -176,7 +209,15 @@ function displayRevenue(showRevenue) {
     })
     $('body').on('click', '.updateRevForm', (event) => {
         event.preventDefault();
-        updateRevenue(event.currentTarget.value);
+        const info = $(event.currentTarget).parent().children("p");
+        const data = {
+            createdAt: $(info[0]).text(),
+            lName: $(info[1]).text(),
+            fName: $(info[2]).text(),
+            revType: $(info[3]).text(),
+            amt: $(info[4]).text()
+        }
+        updateRevenue(event.currentTarget.value, data);
     })
     $('body').on('click', '.deleteRevForm', (event) => {
         event.preventDefault();
@@ -210,20 +251,25 @@ function addRevenue() {
         } else if (option = "3") {
             revType = "FOODPAYMENT";
         }
-        let revInput = {firstName: fName, lastName: lName, amount: amt, type: revType};
-        console.log(revInput);
-        fetch(`/revenue`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': localStorage.getItem('token')
-            },
-            body: JSON.stringify(revInput),
-        })
-            .then(response => response.json())
-            .then(responseJson => {
-                document.getElementById('revenueInput').reset();
-            });
+        if ((fName === '') || (lName === '') || (amt === '') || (option === '')) {
+            alert('entries are required in all fields to add a revenue entry');
+        }
+        else {
+            let revInput = {firstName: fName, lastName: lName, amount: amt, type: revType};
+            console.log(revInput);
+            fetch(`/revenue`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': localStorage.getItem('token')
+                },
+                body: JSON.stringify(revInput),
+            })
+                .then(response => response.json())
+                .then(responseJson => {
+                    document.getElementById('revenueInput').reset();
+                });
+        }
     })
 }
 
@@ -241,7 +287,7 @@ function deleteRevenue(deleteRevID, target) {
         })
 }
 
-function updateRevenue(updateRevID) {
+function updateRevenue(updateRevID, revPreFill) {
     console.log('in revenue update form');
     $('#revenueUpdate').removeClass("hidden");
 
@@ -249,6 +295,19 @@ function updateRevenue(updateRevID) {
         event.preventDefault();
         startOver();
     });
+
+    $('input[name="firstUpName"]').val(revPreFill.fName);
+    $('input[name="lastUpName"]').val(revPreFill.lName);
+    $('input[name="upAmount"]').val(revPreFill.amt);
+    if (revPreFill.revType === "LODGEDONATION") {
+        $($('input[name="whichUpRevType"]')[0]).prop('checked', true);
+    } else if (revPreFill.revType === "CHARDONATION") {
+        $($('input[name="whichUpRevType"]')[1]).prop('checked', true);
+    } else if (revPreFill.revType === "MERCHPAYMENT") {
+        $($('input[name="whichUpRevType"]')[2]).prop('checked', true);
+    } else if (revPreFill.revType === "FOODPAYMENT") {
+        $($('input[name="whichUpRevType"]')[3]).prop('checked', true);
+    }
 
     $('#updateRevSubmit').unbind("click").bind("click", function(event) {
         event.preventDefault();
@@ -352,7 +411,13 @@ function displayExpenses(showExpenses) {
     })
     $('body').on('click', '.updateExpForm', (event) => {
         event.preventDefault();
-        updateExpense(event.currentTarget.value);
+        const info = $(event.currentTarget).parent().children("p");
+        const data = {
+            createdAt: $(info[0]).text(),
+            pName: $(info[1]).text(),
+            amt: $(info[2]).text()
+        }
+        updateExpense(event.currentTarget.value, data);
     })
     $('body').on('click', '.deleteExpForm', (event) => {
         event.preventDefault();
@@ -377,19 +442,24 @@ function addExpense() {
         let amt = $('input[name="expAmount"]').val();
         let expInput = {payeeName: pName, amount: amt};
         console.log(expInput);
-        fetch(`/expenses`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'authorization': localStorage.getItem('token')
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(expInput),
-        })
-            .then(response => response.json())
-            .then(responseJson => {
-                document.getElementById('expenseInput').reset();
-            });
+        if ((pName === '') || (amt === '')) {
+            alert('entries are required in both fields to add an expense entry');
+        }
+        else {
+            fetch(`/expenses`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'authorization': localStorage.getItem('token')
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(expInput),
+            })
+                .then(response => response.json())
+                .then(responseJson => {
+                    document.getElementById('expenseInput').reset();
+                });
+            }
     })
 }
 
@@ -407,7 +477,7 @@ function deleteExpense(deleteExpID, target) {
         })
 };
 
-function updateExpense(updateExpID) {
+function updateExpense(updateExpID, expPreFill) {
     console.log('in expense update form');
     $('#expenseUpdate').removeClass("hidden");
 
@@ -415,6 +485,9 @@ function updateExpense(updateExpID) {
         event.preventDefault();
         startOver();
     });
+
+    $('input[name="payeeUpName"]').val(expPreFill.pName);
+    $('input[name="expUpAmount"]').val(expPreFill.amt);
 
     $('#updateExpSubmit').unbind("click").bind("click", function(event) {
         event.preventDefault();
@@ -464,7 +537,12 @@ function watchForm() {
         event.preventDefault();
         let uName = $("#userName").val();
         let pword = $("#password").val();
-        loginUser(uName, pword);
+        if ((uName === '') || (pword === '')) {
+            alert('username and password are required to login')
+        }
+        else {
+            loginUser(uName, pword);
+        }
     })
     $('#create').unbind("click").bind("click", function(event) {
         event.preventDefault();
@@ -473,7 +551,11 @@ function watchForm() {
         let lName = $("#lstName").val();
         let pword = $("#password").val();
         if ((fName === '') || (lName === '') || (uName === '') || (pword === '')) {
-            console.log('entries are required for all fields to create a user account')
+            alert('entries are required for all fields to create a user account')
+        }
+        else if (!(validate(uName))) {
+            console.log('in validate username format');
+            alert('username must be an email address.');
         }
 // add code to check if user already exists.  need to user get and find()
         else {
@@ -481,7 +563,6 @@ function watchForm() {
         }
     })
 }
-
 
 $(function() {
     console.log('Finance App loaded. Waiting for submit!');

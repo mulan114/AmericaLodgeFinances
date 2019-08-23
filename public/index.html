@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
-	<title>Thinkful Capstone 2</title>
+	<title>America Lodge Finances</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- fonts  -->
   	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
@@ -14,18 +14,21 @@
 <body>
 	<img src="./ALN-logo.png" alt="ALN-logo" height="100" width="100">
 	<h1>  America Lodge Finances</h1>
+	<button id="logout"> Log Out </button>
 	<br><br>
 
 	<form id="landing">
-		<label>Welcome! Please login or create an account.</label>
-		<br><br>
-		Username  <input type="text" id="userName" placeholder="email address" /><br>
+		<h3>Welcome! This web app keeps track of America Lodge's revenue and expenses.  Users can view revenue and expense history, update data, delete data, and/or add new revenue and expense entries.</h3>
+		<h4>To get started, please login or create an account.</h4>
+		<h5>** note: if you are testing this app, please login using Username: "demo@gmail.com" and Password: "thinkful" **</h5>
+		<br>
+		Username  <input type="email" id="userName" placeholder="email address" required /><br>
 		<br>
 		First Name  <input type="text" id="fstName" />  (required if creating an account)<br>
 		<br>
 		Last Name   <input type="text" id="lstName" />  (required if creating an account)<br>
 		<br><br>
-		Password  <input type="text" id="password" /><br>
+		Password  <input type="password" id="password" /><br>
 		<br>
 		<button id="login"> Login </button>
 		<button id="create"> Create </button>

@@ -32,6 +32,10 @@ form {
 	color: white;
 }
 
+button {
+	-webkit-appearance: none;
+}
+
 /* class that hides or shows a section of text on the html page */
 .hidden {
 	display: none;
@@ -70,25 +74,32 @@ form {
 }
 
 
-
-#introduction
-
-#revenueOptions
-
-#revenueDisplayOptions
-
-#revenueInput
+#logout {
+	position: absolute;
+	top: 100px;
+	right: 8%;
+}
 
 #revenueDisplay {
 	width: 80%;
 	overflow: auto;
 	padding: 10px;
 	margin: auto;
-	background-color: #6F787F;
+}
+
+
+#expensesDisplay {
+	width: 80%;
+	overflow: auto;
+	padding: 10px;
+	margin: auto;
 }
 
 @media only screen and (max-width: 600px) {
 	#revenueDisplay {
+		width: 90%;
+	}
+	#expensesDisplay {
 		width: 90%;
 	}
 }
