@@ -6,7 +6,7 @@ const revenueSchema = new mongoose.Schema({
 	amount: Number,
 	// type can only be payment or donation
 	type: {
-		type: String, enum : ['CHARDONATION','LODGEDONATION','FOODPAYMENT','MERCHPAYMENT']
+		type: String, enum : ['CHAR DONATION','LODGE DONATION','FOOD PAYMENT','MERCH PAYMENT']
 	}, 
 	lastName: String,
 	firstName: String,

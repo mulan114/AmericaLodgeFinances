@@ -197,11 +197,11 @@ function displayRevenue(showRevenue) {
     showRevenue.forEach((revenue, index) => {
         $('#revenueDisplay').append(
             `<div class="row item">
-                <p class="col-3">${moment(revenue.createdAt).format('MMMM DD YYYY')}</p> <!--16.67% -->
-                <p class="col-2">${revenue.lastName}</p> <!-- 25% -->
-                <p class="col-1">${revenue.firstName}</p> <!-- 25% -->
-                <p class="col-2">${revenue.type}</p> <!-- 33.33% -->
-                <p class="col-1">${revenue.amount}</p> <!-- 16.67% -->
+                <p class="col-2">${moment(revenue.createdAt).format('MMMM DD YYYY')}</p> 
+                <p class="col-2">${revenue.lastName}</p> 
+                <p class="col-2">${revenue.firstName}</p> 
+                <p class="col-2">${revenue.type}</p> 
+                <p class="col-1">${revenue.amount}</p> 
                 <button class="updateRevForm" value="${revenue._id}"> Update </button>
                 <button class="deleteRevForm" value="${revenue._id}"> Delete </button> 
             </div>`
@@ -243,13 +243,13 @@ function addRevenue() {
         let option = $('input[name="whichRevType"]:checked').val();
         let revType
         if (option === "0") {
-            revType = "LODGEDONATION"; 
+            revType = "LODGE DONATION"; 
         } else if (option === "1") {
-            revType = "CHARDONATION";
+            revType = "CHAR DONATION";
         } else if (option === "2") {
-            revType = "MERCHPAYMENT";
+            revType = "MERCH PAYMENT";
         } else if (option = "3") {
-            revType = "FOODPAYMENT";
+            revType = "FOOD PAYMENT";
         }
         if ((fName === '') || (lName === '') || (amt === '') || (option === '')) {
             alert('entries are required in all fields to add a revenue entry');
@@ -299,13 +299,13 @@ function updateRevenue(updateRevID, revPreFill) {
     $('input[name="firstUpName"]').val(revPreFill.fName);
     $('input[name="lastUpName"]').val(revPreFill.lName);
     $('input[name="upAmount"]').val(revPreFill.amt);
-    if (revPreFill.revType === "LODGEDONATION") {
+    if (revPreFill.revType === "LODGE DONATION") {
         $($('input[name="whichUpRevType"]')[0]).prop('checked', true);
-    } else if (revPreFill.revType === "CHARDONATION") {
+    } else if (revPreFill.revType === "CHAR DONATION") {
         $($('input[name="whichUpRevType"]')[1]).prop('checked', true);
-    } else if (revPreFill.revType === "MERCHPAYMENT") {
+    } else if (revPreFill.revType === "MERCH PAYMENT") {
         $($('input[name="whichUpRevType"]')[2]).prop('checked', true);
-    } else if (revPreFill.revType === "FOODPAYMENT") {
+    } else if (revPreFill.revType === "FOOD PAYMENT") {
         $($('input[name="whichUpRevType"]')[3]).prop('checked', true);
     }
 
@@ -317,13 +317,13 @@ function updateRevenue(updateRevID, revPreFill) {
         let option = $('input[name="whichUpRevType"]:checked').val();
         let revType
         if (option === "0") {
-            revType = "LODGEDONATION"; 
+            revType = "LODGE DONATION"; 
         } else if (option === "1") {
-            revType = "CHARDONATION";
+            revType = "CHAR DONATION";
         } else if (option === "2") {
-            revType = "MERCHPAYMENT";
+            revType = "MERCH PAYMENT";
         } else if (option = "3") {
-            revType = "FOODPAYMENT";
+            revType = "FOOD PAYMENT";
         }
         let revInput = {firstName: fName, lastName: lName, amount: amt, type: revType};
         console.log(revInput);

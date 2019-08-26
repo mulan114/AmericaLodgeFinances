@@ -23,6 +23,7 @@ h1, h2 {
 
 p {
 	font-size: 12px;
+	font-size: 1.3vw;
 }
 
 form {
@@ -34,6 +35,8 @@ form {
 
 button {
 	-webkit-appearance: none;
+	font-size: 12px;
+	font-size: 1.3vw;
 }
 
 /* class that hides or shows a section of text on the html page */
