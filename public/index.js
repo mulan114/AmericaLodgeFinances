@@ -1,25 +1,13 @@
 'use strict';
 
-// Jon Oyanguren10:00 AM
-// 1.- Do a function init that is called in index.js
-
-// 2.- The init function will check if there is a token (localStorage.getItem('token')
-
-// 2.a - IF YES -> call financeApp() function
-
-// 2.b - IF NO -> show the login
-
-// 2.b - Dont do nothing is fine because it goes there anyway
-
 $('#logout').unbind("click").bind("click", function(event) {
     console.log('in logout');
     event.preventDefault();
     localStorage.removeItem('token');
     $('#landing').removeClass("hidden");
     document.getElementById('userName').value='';
-    document.getElementById('fstName').value='';
-    document.getElementById('lstName').value='';
     document.getElementById('password').value='';
+    $('#createuser').addClass("hidden");
     $('#introduction').addClass("hidden");
     $('#revenueOptions').addClass("hidden");
     $('#revenueDisplayOptions').addClass("hidden");
@@ -59,21 +47,45 @@ function loginUser(uname, pw) {
         });
 }
 
-function createUser(uname, fname, lname, pw) {
+function createUser() {
     console.log('in create user');
-    let newUser = {email: uname, firstName: fname, lastName: lname, password: pw}
-    console.log(newUser);
-    fetch(`/users`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify(newUser),
-        })
-        .then(responseJson => {
-            alert('New user created.');
-            financeApp();
+    $('#landing').addClass("hidden");
+    $('#createuser').removeClass("hidden");
+    document.getElementById('userNameCrt').value='';
+    document.getElementById('fstNameCrt').value='';
+    document.getElementById('lstNameCrt').value='';
+    document.getElementById('passwordCrt').value='';
+
+    $('#createnlogin').unbind("click").bind("click", function(event) {
+        event.preventDefault();
+        let uName = $("#userNameCrt").val();
+        let fName = $("#fstNameCrt").val();
+        let lName = $("#lstNameCrt").val();
+        let pword = $("#passwordCrt").val();
+        if ((fName === '') || (lName === '') || (uName === '') || (pword === '')) {
+            alert('entries are required for all fields to create a user account')
+        }
+        else if (!(validate(uName))) {
+            console.log('in validate username format');
+            alert('username must be an email address.');
+        }
+// add code to check if user already exists.  need to user get and find()
+        else {
+            let newUser = {email: uName, firstName: fName, lastName: lName, password: pword}
+            console.log(newUser);
+            fetch(`/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(newUser),
+                })
+                .then(responseJson => {
+                    alert('New user created.');
+                    financeApp();
+                });
+            }
         });
 }
 
@@ -86,6 +98,7 @@ function validate(userNameFormat) {
 function financeApp() {
     $('#introduction').removeClass("hidden");
     $('#landing').addClass("hidden");
+    $('#createuser').addClass("hidden");
     $('#initialSelect').unbind("click").bind("click", function(event) {
         event.preventDefault();
         let option = $('input[name="whichoption"]:checked').val();
@@ -512,6 +525,7 @@ function updateExpense(updateExpID, expPreFill) {
 function startOver() {
     console.log('in start over');
     $('#landing').addClass("hidden");
+    $('#createuser').addClass("hidden");
 	$('#introduction').removeClass("hidden");
     document.getElementById('introduction').reset();
 	$('#revenueOptions').addClass("hidden");
@@ -546,21 +560,7 @@ function watchForm() {
     })
     $('#create').unbind("click").bind("click", function(event) {
         event.preventDefault();
-        let uName = $("#userName").val();
-        let fName = $("#fstName").val();
-        let lName = $("#lstName").val();
-        let pword = $("#password").val();
-        if ((fName === '') || (lName === '') || (uName === '') || (pword === '')) {
-            alert('entries are required for all fields to create a user account')
-        }
-        else if (!(validate(uName))) {
-            console.log('in validate username format');
-            alert('username must be an email address.');
-        }
-// add code to check if user already exists.  need to user get and find()
-        else {
-            createUser(uName, fName, lName, pword);
-        }
+        createUser();
     })
 }
 

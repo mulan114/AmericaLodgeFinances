@@ -24,43 +24,53 @@
 		<br>
 		Username  <input type="email" id="userName" placeholder="email address" required /><br>
 		<br>
-		First Name  <input type="text" id="fstName" />  (required if creating an account)<br>
-		<br>
-		Last Name   <input type="text" id="lstName" />  (required if creating an account)<br>
-		<br><br>
 		Password  <input type="password" id="password" /><br>
 		<br>
 		<button id="login"> Login </button>
 		<button id="create"> Create </button>
 	</form>
 
-	<form id="introduction" class="hidden">
-		<label>Which would you like to work with at this time?</label>
+	<form id="createuser" class="hidden">
+		<h3>Please complete the form to create a user.  Once complete, the app will log you in.</h3>
 		<br><br>
-		<input type="radio" name="whichoption" value="0"> Revenue<br>
-		<input type="radio" name="whichoption" value="1"> Expenses<br>
+		Username  <input type="email" id="userNameCrt" placeholder="email address" required /><br>
+		<br>
+		First Name  <input type="text" id="fstNameCrt" /><br>
+		<br>
+		Last Name   <input type="text" id="lstNameCrt" /><br>
+		<br><br>
+		Password  <input type="password" id="passwordCrt" /><br>
+		<br>
+		<button id="createnlogin"> Create & Login </button>
+	</form>
+
+	<form id="introduction" class="hidden">
+		<h3>Which would you like to work with at this time?</h3>
+		<br><br>
+		<label><input id="i0" type="radio" name="whichoption" value="0"> Revenue<br></label>
+		<label><input id="i1" type="radio" name="whichoption" value="1"> Expenses<br></label>
 		<br>
 		<button id="initialSelect"> Select </button>
 	</form>
 
 	<form  id="revenueOptions" class="hidden">
-		<label>What would you like to do regarding revenue?</label>
+		<h3>What would you like to do regarding revenue?</h3>
 		<br><br>
-		<input type="radio" name="whichrevoption" value="0"> Show revenue<br>
-		<input type="radio" name="whichrevoption" value="1"> Add revenue entry<br>
+		<label><input id="ro0" type="radio" name="whichrevoption" value="0"> Show revenue<br></label>
+		<label><input id="ro1" type="radio" name="whichrevoption" value="1"> Add revenue entry<br></label>
 		<br>
 		<button id="revenueSelect"> Select </button>
 		<button id="backToIntroRO"> Back to Start </button>
 	</form>
 
 	<form  id="revenueDisplayOptions" class="hidden">
-		<label>What type of revenue would you like to see?</label>
+		<h3>What type of revenue would you like to see?</h3>
 		<br><br>
-		<input type="radio" name="whichrevdisoption" value="0"> All<br>
-		<input type="radio" name="whichrevdisoption" value="1"> Lodge Donations<br>
-		<input type="radio" name="whichrevdisoption" value="2"> Charity Donations<br>
-		<input type="radio" name="whichrevdisoption" value="3"> Merchandise Payments<br>
-		<input type="radio" name="whichrevdisoption" value="4"> Food Payments<br>		
+		<label><input id="rdo0" type="radio" name="whichrevdisoption" value="0" /> All<br></label> 
+		<label><input id="rdo1" type="radio" name="whichrevdisoption" value="1"> Lodge Donations<br></label>
+		<label><input id="rdo2" type="radio" name="whichrevdisoption" value="2"> Charity Donations<br></label>
+		<label><input id="rdo3" type="radio" name="whichrevdisoption" value="3"> Merchandise Payments<br></label>
+		<label><input id="rdo4" type="radio" name="whichrevdisoption" value="4"> Food Payments<br></label>		
 		<br>
 		<button id="revenueDisplaySelect"> Select </button>
 		<button id="backToIntroRDO"> Back to Start </button>
@@ -79,10 +89,10 @@
 		<br>
 		Type of Revenue (select one):
 		<br>
-		<input type="radio" name="whichRevType" value="0"> Lodge Donation<br>
-		<input type="radio" name="whichRevType" value="1"> Charity Donation<br>
-		<input type="radio" name="whichRevType" value="2"> Merchandise Payment<br>
-		<input type="radio" name="whichRevType" value="3"> Food Payment<br>
+		<label><input id="ri0" type="radio" name="whichRevType" value="0"> Lodge Donation<br></label>
+		<label><input id="ri1" type="radio" name="whichRevType" value="1"> Charity Donation<br></label>
+		<label><input id="ri2" type="radio" name="whichRevType" value="2"> Merchandise Payment<br></label>
+		<label><input id="ri3" type="radio" name="whichRevType" value="3"> Food Payment<br></label>
 		<br>
 		Amount <input type="number" name="amount"><br>		
 		<br><br>
@@ -99,10 +109,10 @@
 		<br>
 		Type of Revenue (select one):
 		<br>
-		<input type="radio" name="whichUpRevType" value="0"> Lodge Donation<br>
-		<input type="radio" name="whichUpRevType" value="1"> Charity Donation<br>
-		<input type="radio" name="whichUpRevType" value="2"> Merchandise Payment<br>
-		<input type="radio" name="whichUpRevType" value="3"> Food Payment<br>
+		<label><input id="ru0" type="radio" name="whichUpRevType" value="0"> Lodge Donation<br></label>
+		<label><input id="ru1" type="radio" name="whichUpRevType" value="1"> Charity Donation<br></label>
+		<label><input id="ru2" type="radio" name="whichUpRevType" value="2"> Merchandise Payment<br></label>
+		<label><input id="ru3" type="radio" name="whichUpRevType" value="3"> Food Payment<br></label>
 		<br>
 		Amount <input type="number" name="upAmount"><br>		
 		<br><br>
@@ -111,10 +121,10 @@
 	</form>
 
 	<form  id="expensesOptions" class="hidden">
-		<label>What would you like to do regarding expenses?</label>
+		<h3>What would you like to do regarding expenses?</h3>
 		<br><br>
-		<input type="radio" name="whichexpoption" value="0"> Show expenses<br>
-		<input type="radio" name="whichexpoption" value="1"> Add expense entry<br>
+		<label><input id="e0" type="radio" name="whichexpoption" value="0"> Show expenses<br></label>
+		<label><input id="e1" type="radio" name="whichexpoption" value="1"> Add expense entry<br></label>
 		<br>
 		<button id="expenseSelect"> Select </button>
 		<button id="backToIntroEO"> Back to Start </button>
