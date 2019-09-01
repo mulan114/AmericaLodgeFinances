@@ -71,7 +71,7 @@ function createUser() {
         }
 // add code to check if user already exists.  need to user get and find()
         else {
-            let newUser = {email: uName, firstName: fName, lastName: lName, password: pword}
+            let newUser = {email: uName, firstName: fName, lastName: lName, password: pword};
             console.log(newUser);
             fetch(`/users`, {
                 method: 'POST',

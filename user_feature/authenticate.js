@@ -57,7 +57,7 @@ exports.doLogin = (req, res) => {
 };
 
 exports.doRegister = (req, res) => {
-
+    console.log('in do register');
     User.findOne({userEmail: req.body.email})
         .then((user) => {
             if(user){
