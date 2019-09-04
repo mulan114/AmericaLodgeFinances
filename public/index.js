@@ -541,12 +541,16 @@ function startOver() {
     document.getElementById('revenueDisplay').reset();
     $('#revenueInput').addClass("hidden");
     document.getElementById('revenueInput').reset();
+    $('#revenueUpdate').addClass("hidden");
+    document.getElementById('revenueUpdate').reset();
     $('#expensesOptions').addClass("hidden");
     document.getElementById('expensesOptions').reset();
     $('#expensesDisplay').addClass("hidden");
     document.getElementById('expensesDisplay').reset();
     $('#expenseInput').addClass("hidden");
     document.getElementById('expenseInput').reset();
+    $('#expenseUpdate').addClass("hidden");
+    document.getElementById('expenseUpdate').reset();
 }
 
 // landing page for America Lodge Finances, offering options to login as a user or 
