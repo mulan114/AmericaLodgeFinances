@@ -82,8 +82,13 @@ function createUser() {
                 body: JSON.stringify(newUser),
                 })
                 .then(responseJson => {
-                    alert('New user created.');
-                    financeApp();
+                    if (responseJson.status === 404) {
+                        alert('This user already exists.');
+                    } 
+                    else {
+                        alert('New user created.');
+                        loginUser(uName, pword);
+                    }
                 });
             }
         });
@@ -211,7 +216,7 @@ function displayRevenue(showRevenue) {
         $('#revenueDisplay').append(
             `<div class="row item">
                 <p class="col-2">${moment(revenue.createdAt).format('MMMM DD YYYY')}</p> 
-                <p class="col-2">${revenue.lastName}</p> 
+                <p class="col-3">${revenue.lastName}</p> 
                 <p class="col-2">${revenue.firstName}</p> 
                 <p class="col-2">${revenue.type}</p> 
                 <p class="col-1">${revenue.amount}</p> 
